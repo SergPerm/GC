@@ -1,0 +1,16 @@
+профилировал проект job4j_tracker
+с использовинием хранилища пам€ти: MemTracker.
+дл€ анализа использовалс€ "Jconsole".
+так же выполн€лись запросы:
+PS C:\projects\job4j_tracker> jhsdb jmap --heap --pid 5708
+PS C:\projects\job4j_tracker> jhsdb jmap --histo --pid 5708
+
+при настройках пам€ти меньше "-Xms4m -Xmx4m" программа выдает "OutOfMemoryError: Java heap space" через небольшое врем€ просто€ даже без выполнени€ операций по добавлению элементов, в св€зи с заполнением "MemoryPool G1 Old Generation".
+class StartUI запускалс€ и работал с минимальными параметрами VM: "-Xms5m -Xmx5m", позвол€л вставл€ть элементы, удал€ть, редактировать , но тоже недолго, через какое-то врем€ heap то же полностью заполн€лс€ вызыва€ "OutOfMemoryError: Java heap space". за это врем€ выполн€лись частые сборки в GC 
+за 27 минут работы выполнено :†
+†0,500 seconds on G1 Young Generation (132 collections)
+†3,746 seconds on G1 Old Generation (78 collections)
+процессор тоже часто исопльзовалс€.
+при параметрах VM: "-Xms10m -Xmx10m", дождатьс€ (в разумное врем€) ошибки не получилось.
+
+
